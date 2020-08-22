@@ -50,12 +50,11 @@
 import Description from './components/description'
 import Trade from './components/trade'
 import Chart from './components/chart'
-import HyperParams from './components/hyper-params'
 import {backTest} from '@/api/stock'
 
 export default {
   components: {
-    Description, Trade, Chart, HyperParams
+    Description, Trade, Chart
   },
   data: () => ({
     queryForm: {

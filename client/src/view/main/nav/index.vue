@@ -41,7 +41,13 @@ export default {
   computed: {
     ...mapGetters(['closeNav']),
     routers () {
-      return routers.filter(e => !e.hidden)
+      const router = routers.filter(e => !e.hidden)
+      router.forEach(e => {
+        if (e.children) {
+          e.children = e.children.filter(i => !i.hidden)
+        }
+      })
+      return router
     }
   }
 }

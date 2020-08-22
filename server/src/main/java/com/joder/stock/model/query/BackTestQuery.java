@@ -1,6 +1,9 @@
 package com.joder.stock.model.query;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Map;
 
@@ -8,6 +11,9 @@ import java.util.Map;
  * @author Joder 2020/8/16 9:31
  */
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class BackTestQuery {
 
     /**
@@ -34,4 +40,5 @@ public class BackTestQuery {
      * 回测结束时间
      */
     private String endDate;
+
 }

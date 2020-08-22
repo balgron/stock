@@ -30,9 +30,9 @@ class BackTestTurtleTest {
 
     @BeforeEach
     void before() {
-        String code = "sz000006";
+        String code = "sz000756";
         String startDate = "2018-01-01";
-        String endDate = "2019-12-31";
+        String endDate = "2020-12-31";
         stockList = repository.getHistory(code, startDate, endDate).collectList().block();
         map = new HashMap<>();
         map.put("minDayNum", 10);

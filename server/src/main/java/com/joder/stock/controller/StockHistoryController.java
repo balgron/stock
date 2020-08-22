@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 
 /**
+ * 股票历史数据
  * @author Joder 2020/8/8 21:30
  */
 @RestController
@@ -18,6 +19,13 @@ public class StockHistoryController {
         this.stockHistoryService = stockHistoryService;
     }
 
+    /**
+     * 日线
+     * @param code 股票代码
+     * @param startDate 开始时间
+     * @param endDate 结束时间
+     * @return 历史数据
+     */
     @GetMapping("/history/{code}")
     public Flux<StockHistory> getHistory(@PathVariable String code,
                                          @RequestParam String startDate,

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-table :data="filterData" v-bind="$attrs">
+    <el-table :data="filterData" v-bind="$attrs" @sort-change="handleSort">
       <slot></slot>
     </el-table>
     <el-pagination
@@ -33,7 +33,8 @@ export default {
       size: 10,
       total: 0,
       page: 1
-    }
+    },
+    sortInfo: {}
   }),
   watch: {
     tableData: {
@@ -54,18 +55,36 @@ export default {
     }
   },
   methods: {
+    handleSort (e) {
+      this.sortInfo = {
+        order: e.order,
+        prop: e.prop
+      }
+    },
     handleSizeChange (e) {
       this.$set(this.pageInfo, 'size', e)
     },
     handleCurrentChange (e) {
       this.$set(this.pageInfo, 'page', e)
+    },
+    sortMethod (x1, x2, key) {
+      return x1[key] > x2[key] ? 1 : (x1[key] < x2[key] ? -1 : 0)
     }
   },
   computed: {
     filterData () {
       let start = (this.pageInfo.page - 1) * this.pageInfo.size
       let end = this.pageInfo.page * this.pageInfo.size
-      return this.tableData.slice(start, end)
+      return this.computedTableData.slice(start, end)
+    },
+    computedTableData () {
+      if (!this.sortInfo.order) {
+        return this.tableData
+      }
+      return [...this.tableData].sort((x1, x2) => {
+        const num = this.sortInfo.order === 'descending' ? -1 : 1
+        return this.sortMethod(x1, x2, this.sortInfo.prop) * num
+      })
     }
   }
 }

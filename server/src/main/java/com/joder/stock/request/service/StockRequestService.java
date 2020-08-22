@@ -10,10 +10,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.lang.reflect.Field;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
+ * 对tushare网站获取的数据进行统一处理，并转换成期望的类
+ *
  * @author Joder 2020/8/19 20:38
  */
 @Service

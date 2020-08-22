@@ -14,6 +14,9 @@ public class ProcessQuery {
     private double initMoney;
     private String strategyCode;
     private List<StockHistory> stockList;
+    /**
+     * 对应每个策略需要的参数
+     */
     private Map<String, Object> hyperParams;
 
     public ProcessQuery(String strategyCode, List<StockHistory> stockList) {

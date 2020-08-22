@@ -11,6 +11,7 @@ import com.joder.stock.repository.StockHistoryRepository;
 import com.joder.stock.repository.StockRepository;
 import com.joder.stock.request.domain.StockApi;
 import com.joder.stock.request.service.StockRequestService;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
 
@@ -38,7 +39,13 @@ public class StockJob {
         this.stockHistoryRepository = stockHistoryRepository;
     }
 
+    /**
+     * 17点自动更新每天数据
+     *
+     * @throws IOException
+     */
     @PostConstruct
+    @Scheduled(cron = "0 0 17 * * ?")
     public void init() throws IOException {
         List<String> days = days();
         String maxDay = null;
@@ -57,6 +64,7 @@ public class StockJob {
     private void reloadStockList() {
         List<Stock> list = stockRequestService.request(StockApi.STOCK_BASIC, null, StockDTO.class)
                 .stream()
+                .filter(e -> "L".equalsIgnoreCase(e.getListStatus()))
                 .map(StockDTO::toStock)
                 .sorted(Comparator.comparing(Stock::getTsCode))
                 .collect(Collectors.toList());

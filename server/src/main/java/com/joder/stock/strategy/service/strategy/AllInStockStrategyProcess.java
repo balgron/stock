@@ -6,6 +6,7 @@ import com.joder.stock.strategy.domain.*;
 import com.joder.stock.util.StockUtil;
 
 /**
+ * 该类作用是，手里掌握的资金在买时all in, 在卖时全部股票卖出
  * @author Joder 2020/8/16 17:00
  */
 public interface AllInStockStrategyProcess extends StockStrategyProcess {

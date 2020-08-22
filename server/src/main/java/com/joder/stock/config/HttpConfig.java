@@ -8,6 +8,8 @@ import org.springframework.web.reactive.function.client.ExchangeStrategies;
 import org.springframework.web.reactive.function.client.WebClient;
 
 /**
+ * 请求http接口配置
+ *
  * @author Joder 2020/8/19 21:52
  */
 @Configuration

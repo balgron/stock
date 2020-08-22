@@ -22,4 +22,6 @@ public class Stock {
     private String tsCode;
     private String symbol;
     private String name;
+    @Field("list_date")
+    private String listDate;
 }

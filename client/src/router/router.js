@@ -17,30 +17,49 @@ export const commonRouter = [
 
 export const appRouter = [
   {
-    path: '/stock',
-    title: '股票',
+    path: '/stock-normal',
+    title: '基本信息',
     icon: 'el-icon-location',
     component: Main,
     children: [
       {
-        path: '/stock/list',
+        path: '/stock-normal/list',
         title: '股票信息',
         component: () => import('@/view/stock/list')
       },
       {
-        path: '/stock/history',
+        path: '/stock-normal/history',
         title: '股票历史',
         component: () => import('@/view/stock/history')
-      },
+      }
+    ]
+  },
+  {
+    path: '/stock-quantify',
+    title: '量化操作',
+    icon: 'el-icon-trophy',
+    component: Main,
+    children: [
       {
-        path: '/stock/operate',
+        path: '/stock-quantify/operate',
         title: '股票操作',
         component: () => import('@/view/stock/operate')
       },
       {
-        path: '/stock/back_test',
-        title: '股票回测',
+        path: '/stock-quantify/back-test',
+        title: '策略回测',
         component: () => import('@/view/stock/back-test')
+      },
+      {
+        path: '/stock-quantify/search-best',
+        title: '回测排行',
+        component: () => import('@/view/stock/search-best')
+      },
+      {
+        path: '/stock-quantify/search-best/detail',
+        title: '回测明细',
+        hidden: true,
+        component: () => import('@/view/stock/search-best/detail')
       }
     ]
   }

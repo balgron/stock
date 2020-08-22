@@ -8,6 +8,7 @@ import lombok.Data;
 import java.util.List;
 
 /**
+ * 股票回测记录的结果，模拟交易的详细信息
  * @author Joder 2020/8/16 9:29
  */
 @Data

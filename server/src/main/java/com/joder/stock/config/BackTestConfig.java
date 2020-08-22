@@ -7,6 +7,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
+ * 回测处理配置
+ *
  * @author Joder 2020/8/16 9:35
  */
 @Configuration

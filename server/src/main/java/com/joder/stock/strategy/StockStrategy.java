@@ -7,6 +7,8 @@ import com.joder.stock.strategy.service.strategy.turtle.impl.TurtlePlusStockStra
 import com.joder.stock.strategy.service.strategy.turtle.impl.TurtleStockStrategyProcessImpl;
 
 /**
+ * 回测策略
+ *
  * @author Joder 2020/8/14 20:42
  */
 public enum StockStrategy {

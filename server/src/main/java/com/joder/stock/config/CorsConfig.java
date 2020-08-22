@@ -5,6 +5,8 @@ import org.springframework.web.reactive.config.CorsRegistry;
 import org.springframework.web.reactive.config.WebFluxConfigurer;
 
 /**
+ * 跨域配置
+ *
  * @author Joder 2020/6/13 21:19
  */
 @Configuration
