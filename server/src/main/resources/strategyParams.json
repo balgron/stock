@@ -1,0 +1,113 @@
+[
+  {
+    "code": "mean",
+    "params": [
+      {
+        "name": "maxDayNum",
+        "type": "number",
+        "description": "最大均线天数",
+        "default": 20
+      },
+      {
+        "name": "minDayNum",
+        "type": "number",
+        "description": "最小均线天数",
+        "default": 10
+      }
+    ]
+  },
+  {
+    "code": "turtle",
+    "params": [
+      {
+        "name": "maxDayNum",
+        "type": "number",
+        "description": "最大范围天数",
+        "default": 10
+      },
+      {
+        "name": "minDayNum",
+        "type": "number",
+        "description": "最小范围天数",
+        "default": 5
+      }
+    ]
+  },
+  {
+    "code": "turtle-plus",
+    "params": [
+      {
+        "name": "maxDayNum",
+        "type": "number",
+        "description": "最大范围天数",
+        "default": 10
+      },
+      {
+        "name": "minDayNum",
+        "type": "number",
+        "description": "最小范围天数",
+        "default": 5
+      },
+      {
+        "name": "decreaseRange",
+        "type": "number",
+        "description": "减仓ATR幅度倍数",
+        "default": 2
+      },
+      {
+        "name": "increaseRange",
+        "type": "number",
+        "description": "加仓ATR幅度倍数",
+        "default": 0.5
+      },
+      {
+        "name": "maxUnit",
+        "type": "number",
+        "description": "最大持仓倍数",
+        "default": 4
+      },
+      {
+        "name": "moneyRate",
+        "type": "number",
+        "description": "最大允许亏损幅度",
+        "default": 0.01
+      },
+      {
+        "name": "atrLength",
+        "type": "number",
+        "description": "ATR计算长度",
+        "default": 10
+      }
+    ]
+  },
+  {
+    "code": "macd",
+    "params": [
+      {
+        "name": "dayLineNum",
+        "type": "number",
+        "description": "日线数",
+        "default": 5
+      },
+      {
+        "name": "maxDayNum",
+        "type": "number",
+        "description": "最大范围天数",
+        "default": 26
+      },
+      {
+        "name": "minDayNum",
+        "type": "number",
+        "description": "最小范围天数",
+        "default": 12
+      },
+      {
+        "name": "deaDayNum",
+        "type": "number",
+        "description": "dea计算天数",
+        "default": 9
+      }
+    ]
+  }
+]
+

@@ -1,0 +1,21 @@
+$height: calc(100vh - 40px);
+$border: solid 1px #e6e6e6;
+
+.aside {
+  height: $height;
+  border-right: $border;
+  overflow-y: auto;
+}
+
+.main {
+  height: $height;
+  overflow-y: auto;
+}
+
+.el-menu {
+  border-right: 0;
+}
+
+.el-header {
+  border-bottom: $border;
+}
