@@ -64,7 +64,7 @@
       </s-table>
     </el-row>
     <el-row>
-      <description :result-arr="table.data2" v-model="show"></description>
+      <description :result-arr="table.data2" :value="show"></description>
     </el-row>
   </el-row>
 </template>
@@ -77,7 +77,7 @@ export default {
   data: () => ({
     id: '',
     result: {},
-    show: true,
+    show: false,
     table: {
       data1: [],
       data2: []

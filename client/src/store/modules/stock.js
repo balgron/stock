@@ -10,7 +10,7 @@ const stock = {
     }
   },
   actions: {
-    getStock ({ commit }) {
+    getStock ({commit}) {
       stockList({code: ''})
         .then(res => {
           commit('SET_STOCK', res)

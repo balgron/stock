@@ -7,9 +7,7 @@ const app = {
       state.closeNav = close
     }
   },
-  actions: {
-
-  }
+  actions: {}
 }
 
 export default app

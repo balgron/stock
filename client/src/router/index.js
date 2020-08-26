@@ -4,7 +4,7 @@ import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 import {commonRouter, appRouter} from './router'
 
-NProgress.configure({ showSpinner: false }) // NProgress Configuration
+NProgress.configure({showSpinner: false}) // NProgress Configuration
 export const routers = [...commonRouter, ...appRouter]
 export const router = new Router({
   routes: routers

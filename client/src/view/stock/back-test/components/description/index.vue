@@ -22,6 +22,7 @@ export default {
   data: () => ({
     propsText: {
       profit: '利润率',
+      normalProfit: '普通利润率',
       tradeNum: '总交易次数',
       meanProfit: '平均每笔回报利润率',
       maxProfit: '最大获利',
@@ -42,6 +43,7 @@ export default {
     init () {
       this.propsMethod = {
         profit: e => this.toPercent(e),
+        normalProfit: e => this.toPercent(e),
         tradeNum: e => this.toInt(e),
         meanProfit: e => this.toPercent(e),
         maxProfit: e => this.toPercent(e),

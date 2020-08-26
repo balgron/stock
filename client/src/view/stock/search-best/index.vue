@@ -37,7 +37,9 @@
         <el-table-column prop="params" label="超参数">
           <template slot-scope="{ row }">
             <el-popover trigger="hover">
-              <el-input type="textarea" autosize readonly :value="changeJson(row.params)"></el-input>
+              <div style="width: 200px">
+                <el-input type="textarea" autosize readonly :value="changeJson(row.params)" ></el-input>
+              </div>
               <span slot="reference">{{row.params}}</span>
             </el-popover>
           </template>

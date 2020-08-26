@@ -60,6 +60,11 @@ export const appRouter = [
         title: '回测明细',
         hidden: true,
         component: () => import('@/view/stock/search-best/detail')
+      },
+      {
+        path: '/stock-quantify/search-params/detail',
+        title: '寻找最优解',
+        component: () => import('@/view/stock/search-params')
       }
     ]
   }

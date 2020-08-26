@@ -21,3 +21,7 @@ export const reRunSearchBest = (params, data) => http('/stock_search_best/re_run
 export const runResultList = (params, data) => http('/stock_search_best/result', params, data, 'GET')
 
 export const runResultDetail = (params, data) => http('/stock_search_best/result/detail', params, data, 'GET')
+
+export const bestParamsList = (params, data) => http('/stock_search_best/param', params, data, 'GET')
+
+export const findBestParams = (params, data) => http('/stock_search_best/param/run', params, data, 'POST')

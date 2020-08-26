@@ -87,25 +87,25 @@
         "name": "dayLineNum",
         "type": "number",
         "description": "日线数",
-        "default": 5
-      },
-      {
-        "name": "maxDayNum",
-        "type": "number",
-        "description": "最大范围天数",
-        "default": 26
+        "default": 7
       },
       {
         "name": "minDayNum",
         "type": "number",
         "description": "最小范围天数",
-        "default": 12
+        "default": 6
+      },
+      {
+        "name": "maxDayNum",
+        "type": "number",
+        "description": "最大范围天数",
+        "default": 17
       },
       {
         "name": "deaDayNum",
         "type": "number",
         "description": "dea计算天数",
-        "default": 9
+        "default": 12
       }
     ]
   }
