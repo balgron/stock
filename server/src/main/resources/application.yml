@@ -1,0 +1,30 @@
+server:
+  port: 8888
+spring:
+  data.mongodb.uri: mongodb://localhost/stock
+  ### you can set other email, like 163 mail etc. You can search the method from google.
+  mail:
+    host: smtp.qq.com
+    username: +++++@qq.com
+    ## You can get a password from qq mail
+    password: ++++++++
+    properties:
+      mail:
+        smtp:
+          auth: true
+          port: 587
+      smtp:
+        starttls:
+          enable: true
+          required: true
+        ssl:
+          enable: true
+
+### You can register from 'https://tushare.pro/register?reg=257989' to get a token
+app:
+  token: ++++++++++++++++++++++
+  api: http://api.waditu.com
+  notify:
+    ## ¶ººÅ¸ô¿ª
+    mail: ++++@qq.com
+

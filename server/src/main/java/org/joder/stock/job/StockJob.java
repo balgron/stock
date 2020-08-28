@@ -105,7 +105,7 @@ public class StockJob {
         List<String> list = new ArrayList<>();
         while ((start = DateUtil.format(DateUtil.offsetDay(date, i++), DatePattern.PURE_DATE_PATTERN)).compareTo(now) <= 0) {
             int week = DateUtil.dayOfWeek(DateUtil.parse(start));
-            if (week > 1 && week < 7) {
+            if ((!start.equals(now) || DateUtil.date().hour(true) > 16) && week > 1 && week < 7) {
                 list.add(start);
             }
         }
