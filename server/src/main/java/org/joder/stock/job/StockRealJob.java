@@ -1,5 +1,7 @@
 package org.joder.stock.job;
 
+import cn.hutool.core.date.DateField;
+import cn.hutool.core.date.DateTime;
 import org.joder.stock.model.entity.Stock;
 import org.joder.stock.repository.StockRealRepository;
 import org.joder.stock.repository.StockRepository;
@@ -32,6 +34,15 @@ public class StockRealJob {
     }
 
     @PostConstruct
+    public void init() {
+        DateTime dateTime = new DateTime();
+        int field = dateTime.getField(DateField.DAY_OF_WEEK);
+        if (field == 1 || field == 7) {
+            run();
+        }
+    }
+
+
     @Scheduled(cron = "0 35 9-15 ? * 2-6 *")
     public void run() {
         stockRepository.findAll()

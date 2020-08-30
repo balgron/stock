@@ -1,6 +1,5 @@
 package org.joder.stock.service;
 
-import cn.hutool.core.io.resource.ResourceUtil;
 import com.fasterxml.jackson.core.type.TypeReference;
 import org.joder.stock.core.StockStrategy;
 import org.joder.stock.core.domain.ProcessQuery;
@@ -8,6 +7,7 @@ import org.joder.stock.core.domain.ProcessResult;
 import org.joder.stock.core.domain.StockData;
 import org.joder.stock.core.service.process.BackTestProcess;
 import org.joder.stock.core.util.JsonUtil;
+import org.joder.stock.core.util.StockUtil;
 import org.joder.stock.model.entity.StockHistory;
 import org.joder.stock.model.query.BackTestQuery;
 import org.joder.stock.model.vo.BackTestResultVO;
@@ -17,7 +17,6 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
 
-import java.nio.charset.Charset;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -76,8 +75,7 @@ public class StockBackTestService {
 
     public Flux<Map<String, Object>> getStrategyParams() {
         return Mono.<String>create(sink -> {
-            String content = ResourceUtil.readStr("./strategyParams.json", Charset.defaultCharset());
-            sink.success(content);
+            sink.success(StockUtil.getStockParam());
         })
                 .subscribeOn(Schedulers.elastic())
                 .map(e -> JsonUtil.parse(e, new TypeReference<List<Map<String, Object>>>() {

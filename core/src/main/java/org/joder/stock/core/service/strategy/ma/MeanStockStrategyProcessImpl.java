@@ -13,10 +13,10 @@ public class MeanStockStrategyProcessImpl implements AllInStockStrategyProcess {
 
     @Override
     public StockSuggest judgeSale(StockProcess process) {
-        int maxDayNum = getValue(process.getHyperParams(), "maxDayNum", 20);
-        int minDayNum = getValue(process.getHyperParams(), "minDayNum", 10);
-        double mean20 = mean(process, maxDayNum);
-        double mean10 = mean(process, minDayNum);
+        int slowDayNum = getValue(process.getHyperParams(), "slowDayNum", 20);
+        int fastDayNum = getValue(process.getHyperParams(), "fastDayNum", 10);
+        double mean20 = mean(process, slowDayNum);
+        double mean10 = mean(process, fastDayNum);
         if (mean20 > 0 && mean10 > mean20) {
             return StockSuggest.BUY;
         }
@@ -35,6 +35,8 @@ public class MeanStockStrategyProcessImpl implements AllInStockStrategyProcess {
             }
             sum += stock.getClose();
         }
-        return sum / dayNum;
+        double ret = sum / dayNum;
+        process.setContext("mean" + dayNum + "_" + process.getIndex(), ret);
+        return ret;
     }
 }

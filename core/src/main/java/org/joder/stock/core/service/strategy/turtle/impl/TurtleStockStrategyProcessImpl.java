@@ -15,8 +15,8 @@ public class TurtleStockStrategyProcessImpl extends AbstractTurtleStockStrategyP
     public StockSuggest judgeSale(StockProcess process) {
         StockData currentStock = process.getCurrentStock();
         int index = process.getIndex();
-        int maxDayNum = getValue(process.getHyperParams(), "maxDayNum", 10);
-        int minDayNum = getValue(process.getHyperParams(), "minDayNum", 5);
+        int maxDayNum = getValue(process.getHyperParams(), "slowDayNum", 10);
+        int minDayNum = getValue(process.getHyperParams(), "fastDayNum", 5);
         double max20 = finMax(process, index - 1, maxDayNum);
         if (currentStock.getClose() > max20) {
             return StockSuggest.BUY;

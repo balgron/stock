@@ -34,8 +34,8 @@ public class MacdStockStrategyProcessImpl implements AllInStockStrategyProcess {
 
     private double macd(StockProcess process) {
         Integer dayLineNum = getValue(process.getHyperParams(), "dayLineNum", 5);
-        Integer minDayNum = getValue(process.getHyperParams(), "minDayNum", 12);
-        Integer maxDayNum = getValue(process.getHyperParams(), "maxDayNum", 26);
+        Integer minDayNum = getValue(process.getHyperParams(), "fastDayNum", 12);
+        Integer maxDayNum = getValue(process.getHyperParams(), "slowDayNum", 26);
         Integer deaDayNum = getValue(process.getHyperParams(), "deaDayNum", 9);
         int index = process.getIndex();
         mean(process, dayLineNum);

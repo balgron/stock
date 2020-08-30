@@ -3,15 +3,15 @@
     "code": "mean",
     "params": [
       {
-        "name": "maxDayNum",
+        "name": "slowDayNum",
         "type": "number",
-        "description": "最大均线天数",
+        "description": "慢线均线天数",
         "default": 20
       },
       {
-        "name": "minDayNum",
+        "name": "fastDayNum",
         "type": "number",
-        "description": "最小均线天数",
+        "description": "快线均线天数",
         "default": 10
       }
     ]
@@ -20,15 +20,15 @@
     "code": "turtle",
     "params": [
       {
-        "name": "maxDayNum",
+        "name": "slowDayNum",
         "type": "number",
-        "description": "最大范围天数",
+        "description": "慢线范围天数",
         "default": 10
       },
       {
-        "name": "minDayNum",
+        "name": "fastDayNum",
         "type": "number",
-        "description": "最小范围天数",
+        "description": "快线范围天数",
         "default": 5
       }
     ]
@@ -37,15 +37,15 @@
     "code": "turtle-plus",
     "params": [
       {
-        "name": "maxDayNum",
+        "name": "slowDayNum",
         "type": "number",
-        "description": "最大范围天数",
+        "description": "慢线范围天数",
         "default": 10
       },
       {
-        "name": "minDayNum",
+        "name": "fastDayNum",
         "type": "number",
-        "description": "最小范围天数",
+        "description": "快线范围天数",
         "default": 5
       },
       {
@@ -90,15 +90,15 @@
         "default": 7
       },
       {
-        "name": "minDayNum",
+        "name": "fastDayNum",
         "type": "number",
-        "description": "最小范围天数",
+        "description": "快线范围天数",
         "default": 6
       },
       {
-        "name": "maxDayNum",
+        "name": "slowDayNum",
         "type": "number",
-        "description": "最大范围天数",
+        "description": "慢线范围天数",
         "default": 17
       },
       {
