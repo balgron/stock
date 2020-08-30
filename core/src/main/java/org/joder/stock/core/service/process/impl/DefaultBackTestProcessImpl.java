@@ -32,10 +32,10 @@ public class DefaultBackTestProcessImpl extends AbstractBackTestProcess {
     }
 
     @Override
-    public TradeInfo predictLast(ProcessQuery query) {
+    public TradeReturn predictLast(ProcessQuery query) {
         ProcessResult processResult = new ProcessResult(query.getInitMoney());
         if (query.getStockList().isEmpty()) {
-            return new TradeInfo(query.getInitMoney());
+            return new TradeReturn(query.getStrategyCode(), query.getInitMoney());
         }
         StockStrategy strategy = getStrategy(query.getStrategyCode());
         StockStrategyProcess stockStrategyProcess = strategy.getStockStrategyProcess();
@@ -47,7 +47,7 @@ public class DefaultBackTestProcessImpl extends AbstractBackTestProcess {
             info = stockStrategyProcess.doProcess(process);
             processResult.dealTrade(info);
         }
-        return info;
+        return new TradeReturn(query.getStrategyCode(), info);
     }
 
     private TradeInfo doLast(ProcessResult processResult, StockProcess process) {

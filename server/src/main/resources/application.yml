@@ -24,7 +24,8 @@ spring:
 app:
   token: ++++++++++++++++++++++
   api: http://api.waditu.com
+  sinaApi: http://http://hq.sinajs.cn/
   notify:
-    ## ¶ººÅ¸ô¿ª
+    ## ï¿½ï¿½ï¿½Å¸ï¿½ï¿½ï¿½
     mail: ++++@qq.com
 

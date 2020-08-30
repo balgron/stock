@@ -12,4 +12,5 @@ public class AppConfig {
 
     private String token;
     private String api;
+    private String sinaApi;
 }

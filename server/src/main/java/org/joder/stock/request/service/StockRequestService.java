@@ -8,6 +8,7 @@ import org.joder.stock.request.domain.StockResponseData;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.scheduler.Schedulers;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -105,6 +106,7 @@ public class StockRequestService {
                 .uri(appConfig.getApi())
                 .bodyValue(query)
                 .retrieve().bodyToMono(StockResponse.class)
+                .subscribeOn(Schedulers.single())
                 .block();
     }
 

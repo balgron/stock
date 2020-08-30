@@ -11,16 +11,22 @@ import org.joder.stock.repository.StockHistoryRepository;
 import org.joder.stock.repository.StockRepository;
 import org.joder.stock.request.domain.StockApi;
 import org.joder.stock.request.service.StockRequestService;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
+import reactor.core.scheduler.Schedulers;
 
 import javax.annotation.PostConstruct;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
+import java.time.Duration;
 import java.util.*;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.Semaphore;
 import java.util.stream.Collectors;
 
 /**
@@ -31,12 +37,12 @@ public class StockJob {
 
     private StockRequestService stockRequestService;
     private StockRepository stockRepository;
-    private StockHistoryRepository stockHistoryRepository;
+    private ReactiveMongoTemplate mongoTemplate;
 
-    public StockJob(StockRequestService stockRequestService, StockRepository stockRepository, StockHistoryRepository stockHistoryRepository) {
+    public StockJob(StockRequestService stockRequestService, StockRepository stockRepository, ReactiveMongoTemplate mongoTemplate) {
         this.stockRequestService = stockRequestService;
         this.stockRepository = stockRepository;
-        this.stockHistoryRepository = stockHistoryRepository;
+        this.mongoTemplate = mongoTemplate;
     }
 
     /**
@@ -46,12 +52,12 @@ public class StockJob {
      */
     @PostConstruct
     @Scheduled(cron = "0 0 17 * * ?")
-    public void init() throws IOException {
+    public void init() throws IOException, InterruptedException {
         List<String> days = days();
         String maxDay = null;
-        if (!days.isEmpty()) {
+       /* if (!days.isEmpty()) {
             reloadStockList();
-        }
+        }*/
         for (String day : days) {
             String d = reloadHistory(day);
             maxDay = StrUtil.compare(maxDay, d, true) > 0 ? maxDay : d;
@@ -69,7 +75,7 @@ public class StockJob {
                 .sorted(Comparator.comparing(Stock::getTsCode))
                 .collect(Collectors.toList());
         stockRepository.deleteAll()
-                .then(stockRepository.saveAll(Flux.fromStream(list.stream())).then())
+                .then(stockRepository.saveAll(list).then())
                 .subscribe();
     }
 
@@ -82,8 +88,9 @@ public class StockJob {
                 .sorted(Comparator.comparing(StockHistory::getCode))
                 .collect(Collectors.toList());
         if (!list.isEmpty()) {
-            stockHistoryRepository.deleteStockHistoryByDay(day)
-                    .then(stockHistoryRepository.saveAll(Flux.fromStream(list.stream())).then())
+            mongoTemplate.remove(new Query(Criteria.where("day").is(DateUtil.formatDate(DateUtil.parse(day)))), StockHistory.class)
+                    .then(Mono.empty().then(mongoTemplate.insertAll(list)
+                            .collectList().then()))
                     .subscribe();
             return day;
         }
@@ -91,7 +98,11 @@ public class StockJob {
     }
 
     private List<String> days() throws IOException {
-        InputStream streamSafe = new FileInputStream("read.day");
+        File file = new File("read.day");
+        if (!file.exists()) {
+            file.createNewFile();
+        }
+        InputStream streamSafe = new FileInputStream(file);
         byte[] bytes = streamSafe.readAllBytes();
         Date date;
         if (bytes.length == 0) {

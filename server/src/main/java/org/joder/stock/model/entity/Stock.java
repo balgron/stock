@@ -3,6 +3,7 @@ package org.joder.stock.model.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.bson.types.ObjectId;
+import org.springframework.data.mongodb.core.index.CompoundIndex;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.data.mongodb.core.mapping.FieldType;
@@ -13,6 +14,7 @@ import org.springframework.data.mongodb.core.mapping.MongoId;
  */
 @Data
 @Document("stock_list")
+@CompoundIndex(name = "code_index", def = "{'code' : 1}")
 public class Stock {
 
     @MongoId(FieldType.OBJECT_ID)

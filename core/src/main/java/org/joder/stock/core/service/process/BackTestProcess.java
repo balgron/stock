@@ -3,6 +3,7 @@ package org.joder.stock.core.service.process;
 import org.joder.stock.core.domain.ProcessQuery;
 import org.joder.stock.core.domain.ProcessResult;
 import org.joder.stock.core.domain.TradeInfo;
+import org.joder.stock.core.domain.TradeReturn;
 
 /**
  * @author Joder 2020/8/14 21:21
@@ -23,5 +24,5 @@ public interface BackTestProcess {
      * @param query 查询条件
      * @return 交易信息
      */
-    TradeInfo predictLast(ProcessQuery query);
+    TradeReturn predictLast(ProcessQuery query);
 }

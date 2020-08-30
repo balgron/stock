@@ -14,7 +14,7 @@ import reactor.core.publisher.Mono;
 @Repository
 public interface StockHistoryRepository extends ReactiveMongoRepository<StockHistory, ObjectId> {
 
-    @Query("{'code': '?0', 'day': {$gte: '?1', $lte: '?2'} }")
+    @Query(value = "{'code': '?0', 'day': {$gte: '?1', $lte: '?2'} }", sort = "{'day': 1}")
     Flux<StockHistory> getHistory(String code, String startDate, String endDate);
 
     Mono<Void> deleteStockHistoryByDay(String day);
