@@ -23,6 +23,7 @@
             <el-option label="直线" value="SimpleLine"></el-option>
             <el-option label="均线" value="MaLine"></el-option>
             <el-option label="MACD" value="MacdLine"></el-option>
+            <el-option label="KDJ" value="KdjLine"></el-option>
           </el-select>
         </el-col>
         <el-col :span="1">
@@ -47,9 +48,10 @@ import {formatTime} from 'echarts/lib/util/format'
 import SimpleLine from '@/component/stock-operate/component/SimpleLine'
 import MaLine from '@/component/stock-operate/component/MaLine'
 import MacdLine from '@/component/stock-operate/component/MacdLine'
+import KdjLine from '@/component/stock-operate/component/KdjLine'
 
 export default {
-  components: {SimpleLine, MaLine, MacdLine},
+  components: {SimpleLine, MaLine, MacdLine, KdjLine},
   props: {
     chartData: {
       type: Array,

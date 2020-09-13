@@ -16,6 +16,7 @@ import java.util.Objects;
 @NoArgsConstructor
 @Builder
 public class StockMessage {
+    private String stockCode;
     private String stockName;
     private Double currentPrice;
     private String strategyName;
@@ -25,6 +26,7 @@ public class StockMessage {
 
     public static LinkedHashMap<String, String> getTitleMap() {
         LinkedHashMap<String, String> map = new LinkedHashMap<>();
+        map.put("stockCode", "股票代号");
         map.put("stockName", "股票名称");
         map.put("strategyName","策略名称");
         map.put("currentPrice","当前价格");

@@ -37,9 +37,9 @@ public class StockRealJob {
     public void init() {
         DateTime dateTime = new DateTime();
         int field = dateTime.getField(DateField.DAY_OF_WEEK);
-        if (field == 1 || field == 7) {
-            run();
-        }
+//        if (field == 1 || field == 7) {
+//            run();
+//        }
     }
 
 

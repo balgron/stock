@@ -15,12 +15,17 @@ public class MeanStockStrategyProcessImpl implements AllInStockStrategyProcess {
     public StockSuggest judgeSale(StockProcess process) {
         int slowDayNum = getValue(process.getHyperParams(), "slowDayNum", 20);
         int fastDayNum = getValue(process.getHyperParams(), "fastDayNum", 10);
-        double mean20 = mean(process, slowDayNum);
-        double mean10 = mean(process, fastDayNum);
-        if (mean20 > 0 && mean10 > mean20) {
+        double meanSlow = mean(process, slowDayNum);
+        double meanFast = mean(process, fastDayNum);
+        Double meanSlowPre = process.getContext("mean" + slowDayNum + "_" + (process.getIndex() - 1), Double.TYPE);
+        Double meanFastPre = process.getContext("mean" + fastDayNum + "_" + (process.getIndex() - 1), Double.TYPE);
+        if (meanFastPre == null || meanSlowPre == null) {
+            return StockSuggest.NOTHING;
+        }
+        if (meanSlow > 0 && meanSlowPre > 0 && meanFast > meanSlow && meanFastPre <= meanSlowPre) {
             return StockSuggest.BUY;
         }
-        if (mean10 <= mean20) {
+        if (meanFast <= meanSlow && meanFastPre > meanSlowPre) {
             return StockSuggest.SALE;
         }
         return StockSuggest.NOTHING;

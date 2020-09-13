@@ -120,6 +120,7 @@ public class StockNotifyService {
                     TradeReturn info = (TradeReturn) item.get("today");
                     ProcessResult result = (ProcessResult) item.get("backTest");
                     return StockMessage.builder()
+                            .stockCode(stock.getTsCode())
                             .stockName(stock.getName())
                             .strategyName(StockStrategy.parseStrategy(info.getStrategyCode()).getName())
                             .saleSuggest(info.isSale() ? StringConstant.SALE : StringConstant.BUY)
