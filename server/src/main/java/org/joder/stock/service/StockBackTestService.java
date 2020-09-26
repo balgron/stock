@@ -2,15 +2,15 @@ package org.joder.stock.service;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import org.joder.stock.core.StockStrategy;
-import org.joder.stock.core.domain.ProcessQuery;
-import org.joder.stock.core.domain.ProcessResult;
-import org.joder.stock.core.domain.StockData;
+import org.joder.stock.core.domain.*;
 import org.joder.stock.core.service.process.BackTestProcess;
 import org.joder.stock.core.util.JsonUtil;
 import org.joder.stock.core.util.StockUtil;
 import org.joder.stock.model.entity.StockHistory;
 import org.joder.stock.model.query.BackTestQuery;
+import org.joder.stock.model.query.StockSimulationQuery;
 import org.joder.stock.model.vo.BackTestResultVO;
+import org.joder.stock.model.vo.StockSimulationVO;
 import org.joder.stock.repository.StockHistoryRepository;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
@@ -55,6 +55,38 @@ public class StockBackTestService {
                     return Map.of("result", backTestProcess.doProcess(processQuery), "stockList", e, "normalProfit", normalProfit);
                 })
                 .map(e -> parseResult(e, query));
+    }
+
+    public Mono<TradeReturn> suggestLast(BackTestQuery query) {
+        return stockHistoryRepository.getHistory(query.getStockCode(), query.getStartDate(), query.getEndDate())
+                .collectList()
+                .map(e -> {
+                    ProcessQuery processQuery = new ProcessQuery(
+                            query.getInitMoney(),
+                            query.getStrategyCode(),
+                            e.stream().map(item -> new StockData(item.getDay(), item.getOpen(), item.getClose(), item.getHigh(), item.getLow(), item.getVolume()))
+                                    .collect(Collectors.toList()),
+                            query.getHyperParams()
+                    );
+                    return backTestProcess.predictLast(processQuery);
+                });
+    }
+
+    public Mono<StockSimulationVO> simulation(StockSimulationQuery query) {
+        return stockHistoryRepository.getHistory(query.getStockCode(), query.getStartDate(), query.getEndDate())
+                .collectList()
+                .map(e -> {
+                    ManualQuery manualQuery = new ManualQuery(
+                            query.getStrategyCode(),
+                            e.stream().map(item -> new StockData(item.getDay(), item.getOpen(), item.getClose(), item.getHigh(), item.getLow(), item.getVolume()))
+                                    .collect(Collectors.toList()),
+                            query.getHoldMoney(), query.getHoldVolume(), query.getStockCode(), query.getDate(),
+                            query.getOriginMoney(), query.getPrice(), query.getVolume(),
+                            "buy".equals(query.getOperate()) ? StockSuggest.BUY : ("sale".equals(query.getOperate()) ? StockSuggest.SALE : StockSuggest.NOTHING)
+                    );
+                    return backTestProcess.simulation(manualQuery);
+                })
+                .map(StockSimulationVO::new);
     }
 
     @SuppressWarnings("unchecked")

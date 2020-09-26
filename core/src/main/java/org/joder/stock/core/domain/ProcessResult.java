@@ -1,5 +1,6 @@
 package org.joder.stock.core.domain;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.ToString;
 import org.joder.stock.core.util.StockUtil;
@@ -10,8 +11,7 @@ import java.util.List;
 /**
  * @author Joder 2020/8/14 21:22
  */
-@Getter
-@ToString
+@Data
 public class ProcessResult {
     /**
      * 初始化金额

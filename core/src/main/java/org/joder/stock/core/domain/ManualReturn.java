@@ -1,20 +1,23 @@
 package org.joder.stock.core.domain;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 /**
- * @author Joder 2020/8/14 23:46
+ * @author Joder 2020/9/13 11:24
  */
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
-public class TradeInfo {
+public class ManualReturn {
+
+    private TradeReturn machine;
+    /**
+     * 初始化金额
+     */
+    private double initMoney;
     /**
      * 最大购买金额
      */
     private double holdMoney;
+    private int holdVolume;
     /**
      * 交易日期
      */
@@ -31,14 +34,9 @@ public class TradeInfo {
      * 每手持有价格
      */
     private double originMoney;
-    /**
-     * 是否出售 true:卖出; false:买进
-     */
-    private boolean sale;
+
+    private StockSuggest stockSuggest;
 
     private double tax;
 
-    public TradeInfo(double holdMoney) {
-        this.holdMoney = holdMoney;
-    }
 }

@@ -36,98 +36,7 @@ export default {
         close: 0
       }
     },
-    colorList: ['#c23531', '#2f4554', '#61a0a8', '#d48265', '#91c7ae', '#749f83', '#ca8622', '#bda29a', '#6e7074', '#546570', '#c4ccd3'],
-    options: {
-      animation: true,
-      tooltip: {
-        trigger: 'axis',
-        axisPointer: {
-          type: 'cross'
-        },
-        backgroundColor: 'rgba(245, 245, 245, 0.8)',
-        borderWidth: 1,
-        borderColor: '#ccc',
-        padding: 10,
-        textStyle: {
-          color: '#000'
-        },
-        position: function (pos, params, el, elRect, size) {
-          let obj = {top: 10}
-          obj[['left', 'right'][+(pos[0] < size.viewSize[0] / 2)]] = 30
-          return obj
-        },
-        extraCssText: 'width: 170px'
-      },
-      toolbox: {
-        feature: {
-          dataZoom: {
-            yAxisIndex: false
-          },
-          brush: {
-            type: ['lineX', 'clear']
-          }
-        }
-      },
-      brush: {
-        xAxisIndex: 'all',
-        brushLink: 'all',
-        outOfBrush: {
-          colorAlpha: 0.1
-        }
-      },
-      axisPointer: {
-        link: [{
-          xAxisIndex: [0, 1]
-        }]
-      },
-      yAxis: [
-        {
-          scale: true,
-          splitArea: {
-            show: true
-          }
-        },
-        {
-          scale: true,
-          gridIndex: 1,
-          splitNumber: 2,
-          axisLabel: {show: false},
-          axisLine: {show: false},
-          axisTick: {show: false},
-          splitLine: {show: false}
-        }
-      ],
-      dataZoom: [
-        {
-          type: 'inside',
-          xAxisIndex: [0, 1],
-          start: 0,
-          end: 100
-        },
-        {
-          show: true,
-          xAxisIndex: [0, 1],
-          type: 'slider',
-          top: '85%',
-          start: 0,
-          end: 100
-        }
-      ],
-      grid: [
-        {
-          left: 20,
-          right: 20,
-          top: 110,
-          height: 120
-        },
-        {
-          left: 20,
-          right: 20,
-          height: 40,
-          top: 260
-        }
-      ]
-    }
+    colorList: ['#c23531', '#2f4554', '#61a0a8', '#d48265', '#91c7ae', '#749f83', '#ca8622', '#bda29a', '#6e7074', '#546570', '#c4ccd3']
   }),
   mounted () {
     this.$nextTick(() => {
@@ -136,10 +45,19 @@ export default {
   },
   watch: {
     chartData () {
-      if (this.chart && this.chartData && this.chartData.length > 0) {
+      if (this.chartData && this.chartData.length > 0) {
         this.handleBase()
+      }
+    },
+    options () {
+      if (this.chart) {
         this.chart.clear()
-        this.handleChange()
+        this.chart.setOption(this.options)
+      }
+    },
+    chart () {
+      if (this.chart) {
+        this.chart.clear()
         this.chart.setOption(this.options)
       }
     }
@@ -158,23 +76,6 @@ export default {
       })
       this.base = {
         min, max
-      }
-    },
-    handleChange () {
-      this.options = {
-        ...this.options,
-        title: {
-          left: 'center',
-          text: this.title
-        },
-        color: this.colorList,
-        legend: {
-          top: 30,
-          data: ['日K', 'MA5', 'MA10', 'MA20', 'MA30']
-        },
-        xAxis: this.xAxis(),
-        graphic: this.graphic(),
-        series: this.series()
       }
     },
     xAxis () {
@@ -346,12 +247,119 @@ export default {
       }
       return result
     }
+  },
+  computed: {
+    options () {
+      return {
+        animation: true,
+        tooltip: {
+          trigger: 'axis',
+          axisPointer: {
+            type: 'cross'
+          },
+          backgroundColor: 'rgba(245, 245, 245, 0.8)',
+          borderWidth: 1,
+          borderColor: '#ccc',
+          padding: 10,
+          textStyle: {
+            color: '#000'
+          },
+          position: function (pos, params, el, elRect, size) {
+            let obj = {top: 10}
+            obj[['left', 'right'][+(pos[0] < size.viewSize[0] / 2)]] = 30
+            return obj
+          },
+          extraCssText: 'width: 170px'
+        },
+        toolbox: {
+          feature: {
+            dataZoom: {
+              yAxisIndex: false
+            },
+            brush: {
+              type: ['lineX', 'clear']
+            }
+          }
+        },
+        brush: {
+          xAxisIndex: 'all',
+          brushLink: 'all',
+          outOfBrush: {
+            colorAlpha: 0.1
+          }
+        },
+        axisPointer: {
+          link: [{
+            xAxisIndex: [0, 1]
+          }]
+        },
+        yAxis: [
+          {
+            scale: true,
+            splitArea: {
+              show: true
+            }
+          },
+          {
+            scale: true,
+            gridIndex: 1,
+            splitNumber: 2,
+            axisLabel: {show: false},
+            axisLine: {show: false},
+            axisTick: {show: false},
+            splitLine: {show: false}
+          }
+        ],
+        dataZoom: [
+          {
+            type: 'inside',
+            xAxisIndex: [0, 1],
+            start: 0,
+            end: 100
+          },
+          {
+            show: true,
+            xAxisIndex: [0, 1],
+            type: 'slider',
+            top: '85%',
+            start: 0,
+            end: 100
+          }
+        ],
+        grid: [
+          {
+            left: 20,
+            right: 20,
+            top: 110,
+            height: 290
+          },
+          {
+            left: 20,
+            right: 20,
+            height: 40,
+            top: 350
+          }
+        ],
+        title: {
+          left: 'center',
+          text: this.title
+        },
+        color: this.colorList,
+        legend: {
+          top: 30,
+          data: ['日K', 'MA5', 'MA10', 'MA20', 'MA30']
+        },
+        xAxis: this.xAxis(),
+        graphic: this.graphic(),
+        series: this.series()
+      }
+    }
   }
 }
 </script>
 
 <style scoped>
  .chart {
-   height: 360px;
+   height: 500px;
  }
 </style>

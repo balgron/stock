@@ -1,7 +1,6 @@
 package org.joder.stock.core.service.process.impl;
 
 import org.joder.stock.core.StockStrategy;
-import org.joder.stock.core.domain.StockProcess;
 import org.joder.stock.core.domain.*;
 import org.joder.stock.core.service.process.AbstractBackTestProcess;
 import org.joder.stock.core.service.strategy.StockStrategyProcess;
@@ -48,6 +47,40 @@ public class DefaultBackTestProcessImpl extends AbstractBackTestProcess {
             processResult.dealTrade(info);
         }
         return new TradeReturn(query.getStrategyCode(), info);
+    }
+
+    @Override
+    public ManualReturn simulation(ManualQuery query) {
+        ManualReturn ret = new ManualReturn();
+        TradeReturn tradeReturn = predictLast(query);
+        ret.setMachine(tradeReturn);
+        dealManual(ret, query);
+        return ret;
+    }
+
+    private void dealManual(ManualReturn ret, ManualQuery query) {
+        ProcessResult processResult = new ProcessResult(query.getInitMoney());
+        processResult.setMoney(query.getHoldMoney());
+        processResult.setStockHoldState(query.getHoldVolume() > 0 ? StockHoldState.HOLDING : StockHoldState.UN_HOLD);
+        processResult.setVolume(query.getHoldVolume());
+        processResult.setStockValue(query.getOriginMoney() * query.getHoldVolume());
+        TradeInfo info = new TradeInfo();
+        info.setDate(query.getDate());
+        info.setHoldMoney(query.getHoldMoney());
+        info.setMoney(query.getPrice());
+        info.setOriginMoney(query.getOriginMoney());
+        info.setVolume(query.getVolume());
+        info.setSale(query.getStockSuggest() == StockSuggest.SALE);
+        processResult.dealTrade(info);
+        ret.setDate(query.getDate());
+        ret.setHoldMoney(processResult.getMoney());
+        ret.setHoldVolume(query.getHoldVolume() + (query.getStockSuggest() == StockSuggest.SALE ? -1 : 1) * query.getVolume());
+        ret.setInitMoney(query.getInitMoney());
+        ret.setStockSuggest(query.getStockSuggest());
+        ret.setMoney(query.getPrice());
+        ret.setVolume(processResult.getVolume());
+        ret.setTax(info.getTax());
+        ret.setOriginMoney(processResult.getVolume() == 0 ? 0 : processResult.getStockValue() / processResult.getVolume());
     }
 
     private TradeInfo doLast(ProcessResult processResult, StockProcess process) {

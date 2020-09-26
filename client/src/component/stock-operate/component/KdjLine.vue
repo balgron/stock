@@ -106,7 +106,6 @@ export default {
         } else {
           sum += 50
         }
-
       }
       return sum / dayNum
     }

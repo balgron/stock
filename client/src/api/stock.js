@@ -25,3 +25,7 @@ export const runResultDetail = (params, data) => http('/stock_search_best/result
 export const bestParamsList = (params, data) => http('/stock_search_best/param', params, data, 'GET')
 
 export const findBestParams = (params, data) => http('/stock_search_best/param/run', params, data, 'POST')
+
+export const suggestLast = (params, data) => http('/stock_simulation/suggest', params, data, 'POST')
+
+export const simulation = (params, data) => http('/stock_simulation/simulation', params, data, 'POST')

@@ -33,9 +33,12 @@ public class TradeReturn {
      */
     private boolean sale;
 
+    private boolean nothing;
+
     private double tax;
 
     public TradeReturn(String strategyCode, double holdMoney) {
+        this.strategyCode = strategyCode;
         this.holdMoney = holdMoney;
     }
 
@@ -48,5 +51,6 @@ public class TradeReturn {
         originMoney = info.getOriginMoney();
         sale = info.isSale();
         tax = info.getTax();
+        nothing = info.getVolume() == 0;
     }
 }

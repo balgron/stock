@@ -51,6 +51,11 @@ export const appRouter = [
         component: () => import('@/view/stock/back-test')
       },
       {
+        path: '/stock-quantify/simulation',
+        title: '模拟操作',
+        component: () => import('@/view/stock/simulation')
+      },
+      {
         path: '/stock-quantify/search-best',
         title: '回测排行',
         component: () => import('@/view/stock/search-best')
