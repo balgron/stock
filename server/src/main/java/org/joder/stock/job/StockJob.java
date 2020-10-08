@@ -55,9 +55,9 @@ public class StockJob {
     public void init() throws IOException, InterruptedException {
         List<String> days = days();
         String maxDay = null;
-       /* if (!days.isEmpty()) {
+        if (!days.isEmpty()) {
             reloadStockList();
-        }*/
+        }
         for (String day : days) {
             String d = reloadHistory(day);
             maxDay = StrUtil.compare(maxDay, d, true) > 0 ? maxDay : d;

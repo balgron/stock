@@ -72,5 +72,18 @@ export const appRouter = [
         component: () => import('@/view/stock/search-params')
       }
     ]
+  },
+  {
+    path: '/finance',
+    title: '日常收支',
+    icon: 'el-icon-location',
+    component: Main,
+    children: [
+      {
+        path: '/finance/income',
+        title: '收支记录',
+        component: () => import('@/view/finance/income')
+      }
+    ]
   }
 ]

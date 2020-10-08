@@ -14,7 +14,7 @@ import org.springframework.data.mongodb.core.mapping.MongoId;
  */
 @Data
 @Document("stock_list")
-@CompoundIndex(name = "code_index", def = "{'code' : 1}")
+@CompoundIndex(name = "code_index", def = "{'ts_code' : 1}")
 public class Stock {
 
     @MongoId(FieldType.OBJECT_ID)

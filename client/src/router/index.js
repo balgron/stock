@@ -4,8 +4,21 @@ import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 import {commonRouter, appRouter} from './router'
 
+const dealRoute = (routes) => {
+  const route = [...routes]
+  route.forEach(e => {
+    if (e.title) {
+      e.meta = {...(e.meta || {}), title: e.title}
+    }
+    if (e.children) {
+      e.children = dealRoute(e.children)
+    }
+  })
+  return route
+}
+
 NProgress.configure({showSpinner: false}) // NProgress Configuration
-export const routers = [...commonRouter, ...appRouter]
+export const routers = dealRoute([...commonRouter, ...appRouter])
 export const router = new Router({
   routes: routers
 })

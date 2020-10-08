@@ -31,6 +31,9 @@ public class StockRealDataRequestService {
     }
 
     public List<StockRealData> request(List<String> stockCodes) {
+        if (stockCodes.isEmpty()) {
+            return new ArrayList<>();
+        }
         return Flux.fromIterable(stockCodes)
                 .buffer(500)
                 .flatMap(e -> {
@@ -48,6 +51,7 @@ public class StockRealDataRequestService {
 
 
     private List<StockRealData> parse(String str) {
+        log.info("data: {}", str);
         Matcher matcher = pattern.matcher(str);
         List<StockRealData> ret = new ArrayList<>();
         while (matcher.find()) {

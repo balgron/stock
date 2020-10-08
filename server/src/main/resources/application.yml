@@ -19,6 +19,8 @@ spring:
           required: true
         ssl:
           enable: true
+  freemarker:
+    check-template-location: false
 
 ### You can register from 'https://tushare.pro/register?reg=257989' to get a token
 app:
