@@ -1,6 +1,7 @@
 const app = {
   state: {
-    closeNav: false
+    closeNav: false,
+    title: '股票分析'
   },
   mutations: {
     SET_NAV_CLOSE: (state, close) => {

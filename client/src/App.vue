@@ -11,7 +11,7 @@ export default {
       immediate: true,
       handler (val) {
         if (val.meta && val.meta.title) {
-          document.title = '股票分析 - ' + val.meta.title
+          document.title = this.$store.getters.title + ' - ' + val.meta.title
         }
       }
     }

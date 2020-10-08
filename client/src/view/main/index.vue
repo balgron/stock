@@ -1,6 +1,15 @@
 <template>
   <el-container>
-    <el-header height="40px"></el-header>
+    <el-header height="40px">
+      <div>
+        <div class="header-title">
+          <div class="icon">
+            <el-image src="static/logo.png" fit="fit" style="width: 40px"></el-image>
+          </div>
+          <div class="text">{{$store.getters.title}}</div>
+        </div>
+      </div>
+    </el-header>
     <el-container>
       <el-aside width="250px">
         <div class="aside">
