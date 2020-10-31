@@ -13,7 +13,9 @@ public enum ConsumeEnum {
     SALARY("#ffc53d", "工资", 1 << 4),
     ENTERTAINMENT("#ffec3d", "娱乐支出", 1 << 5),
     DAILY("#bae637", "日常支出", 1 << 6),
-    RENT("#36cfc9", "房租", 1 << 7);
+    RENT("#36cfc9", "房租", 1 << 7),
+    SHOP("#b37feb", "购物", 1 << 8),
+    ;
 
     private String color;
     private String text;

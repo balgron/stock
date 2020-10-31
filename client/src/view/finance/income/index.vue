@@ -28,6 +28,7 @@
     </el-col>
     <el-col>
       <s-table :table-data="table.data" border show-summary :summary-method="summary">
+        <el-table-column label="日期" prop="date"></el-table-column>
         <el-table-column label="时间">
           <template slot-scope="{ row }">
             <span>{{row.time ? moment(row.time).format('YYYY-MM-DD HH:mm') : ''}}</span>
@@ -58,7 +59,7 @@
       </s-table>
     </el-col>
     <el-col>
-      <income-chart></income-chart>
+      <income-chart :data="table.data"></income-chart>
     </el-col>
     <el-dialog :visible.sync="dialog.show" :title="dialog.title" show-close width="20%" :close-on-click-modal="false">
       <el-form label-width="70px">
@@ -74,7 +75,7 @@
           </el-date-picker>
         </el-form-item>
         <el-form-item label="类型">
-          <income-select v-model="submitForm.type"></income-select>
+          <income-select v-model="submitForm.type" :clearable="false"></income-select>
         </el-form-item>
         <el-form-item label="标签">
           <tag-select v-model="submitForm.tags"></tag-select>
@@ -105,7 +106,7 @@ export default {
     return {
       queryForm: {
         endDate: this.moment().format('YYYY-MM-DD'),
-        startDate: this.moment().add(-7, 'day').format('YYYY-MM-DD'),
+        startDate: this.moment().startOf('month').format('YYYY-MM-DD'),
         type: '',
         tags: []
       },
@@ -113,7 +114,7 @@ export default {
         date: '',
         time: '',
         money: 0.00,
-        type: 0,
+        type: 1,
         tags: [],
         description: ''
       },
@@ -148,7 +149,7 @@ export default {
         ]
       },
       dateArr: [
-        this.moment().add(-7, 'day').startOf('day').format('YYYY-MM-DD'),
+        this.moment().startOf('month').format('YYYY-MM-DD'),
         this.moment().endOf('day').format('YYYY-MM-DD')
       ],
       table: {
@@ -168,14 +169,14 @@ export default {
     },
     summary ({ data }) {
       let sum = 0
-      data.forEach(e => {
-        if (e.type) {
+      this.table.data.forEach(e => {
+        if (!e.type) {
           sum += e.money || 0
         } else {
           sum -= e.money || 0
         }
       })
-      return ['汇总', '汇总', '汇总', sum, '汇总', '汇总']
+      return ['汇总', '汇总', '汇总', '汇总', sum.toFixed(2), '汇总', '汇总']
     },
     handleChange (e) {
       if (e) {
@@ -191,7 +192,7 @@ export default {
     handleDate (e) {
       if (e && e.length === 2) {
         this.queryForm.startDate = this.moment(e[0]).startOf('day').format('YYYY-MM-DD')
-        this.queryForm.endDate = this.moment(e[0]).endOf('day').format('YYYY-MM-DD')
+        this.queryForm.endDate = this.moment(e[1]).endOf('day').format('YYYY-MM-DD')
       }
     },
     handleAdd () {
@@ -200,10 +201,10 @@ export default {
         show: true
       }
       this.submitForm = {
-        date: '',
-        time: '',
+        date: this.moment().format('YYYY-MM-DD'),
+        time: new Date().getTime(),
         money: 0.00,
-        type: 0,
+        type: 1,
         tags: [],
         description: ''
       }
@@ -231,6 +232,7 @@ export default {
           this.$message.error(`${this.dialog.title}失败`)
         }
         this.dialog.show = false
+        this.handleQuery()
       } catch (e) {
         this.$message.error(`${this.dialog.title}失败`)
         this.dialog.show = false
@@ -244,6 +246,7 @@ export default {
         } else {
           this.$message.error('删除失败')
         }
+        this.handleQuery()
       } catch (e) {
         this.$message.error('删除失败')
       }

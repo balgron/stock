@@ -1,5 +1,5 @@
 <template>
-  <el-select clearable v-model="selectVal">
+  <el-select :clearable="clearable" v-model="selectVal">
     <el-option v-for="item in list" :value="item.value" :label="item.text" :key="item.value"></el-option>
   </el-select>
 </template>
@@ -13,6 +13,10 @@ export default {
   props: {
     value: {
       type: [Number, String]
+    },
+    clearable: {
+      type: Boolean,
+      default: true
     }
   },
   data: () => ({
